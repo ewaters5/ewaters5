@@ -1,0 +1,23 @@
+{
+  "config": {
+    "scss": "./web/themes/custom/tapestry_barrio_sass/scss/",
+    "css": "./web/themes/custom/tapestry_barrio_sass/css/",
+    "style": "expanded"
+  },
+  "scripts": {
+    "init": "echo 'loglevel=silent' > ./.npmrc",
+    "build": "echo 'Building...';COMPOSER_PROCESS_TIMEOUT=2000 composer install; drush updb -y; drush cim -y; npm run compile:force; drush cr; echo 'Build complete.'",
+    "compile": "echo 'Compiling SASS into CSS'; sass --quiet --style=$npm_package_config_style $npm_package_config_scss:$npm_package_config_css; echo 'Done!'",
+    "watch": "echo 'Preparing to watch SASS'; sass --watch  --style=$npm_package_config_style $npm_package_config_scss:$npm_package_config_css",
+    "clean": "echo 'Cleaning CSS Directory'; rm -r $npm_package_config_css/*; echo 'Done!'",
+    "compile:force": "npm run clean; npm run compile",
+    "ci": ""
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "dart-sass": "^1.25.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}
